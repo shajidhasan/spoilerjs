@@ -10,8 +10,10 @@
 			<span class="hidden sm:inline">spoilerjs</span>
 		</AppBar.Lead>
 		<AppBar.Trail>
-			<a class="btn btn-sm sm:btn-base hover:preset-tonal" href="#demo">Demo</a>
-			<a class="btn btn-sm sm:btn-base hover:preset-tonal" href="#features">Features</a>
+			<a class="btn btn-sm hidden sm:inline sm:btn-base hover:preset-tonal" href="#demo">Demo</a>
+			<a class="btn btn-sm hidden sm:inline sm:btn-base hover:preset-tonal" href="#features"
+				>Features</a
+			>
 			<a class="btn btn-sm sm:btn-base hover:preset-tonal" href="#docs">Docs</a>
 			<a
 				class="btn btn-sm sm:btn-base preset-filled-primary-500"

@@ -56,8 +56,8 @@
 </script>
 
 <section class="px-4 md:py-30 sm:py-15 py-10">
-	<div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-		<div class="space-y-6">
+	<div class="max-w-6xl mx-auto flex flex-col-reverse md:flex-row gap-12 items-center">
+		<div class="space-y-6 flex-1">
 			<div class="badge preset-tonal-secondary">Web Components API</div>
 
 			<h1 class="h1 text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
@@ -83,7 +83,7 @@
 			</div>
 		</div>
 
-		<div class="card preset-filled-surface-100-900 overflow-hidden">
+		<div class="card preset-filled-surface-100-900 overflow-hidden flex-1 w-full">
 			<div class="preset-filled-surface-200-800 px-4 py-3 flex items-center justify-between">
 				<div class="flex gap-2">
 					<span class="w-3 h-3 rounded-full bg-red-500"></span>
