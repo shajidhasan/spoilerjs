@@ -93,7 +93,7 @@
 				<span class="text-sm text-surface-700-300">App.tsx</span>
 			</div>
 			<div class="overflow-x-auto h-80">
-				<pre class="overflow-x-auto p-4 bg-transparent! my-0!"><code
+				<pre class="overflow-x-auto p-4 bg-transparent! my-0! h-full"><code
 						bind:this={codeBlock}
 						class="language-jsx">{@html initial}</code
 					></pre>

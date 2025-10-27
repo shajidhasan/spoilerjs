@@ -42,7 +42,7 @@
 				<pre
 					class="text-xs font-mono text-[#24292f] dark:text-[#c9d1d9] overflow-x-auto leading-relaxed"><code
 						>curl -X GET "https://api.example.com/v1/data" \
-  -H "Authorization: Bearer <spoiler-span>SECRET_KEY</spoiler-span>"</code
+  -H "Authorization: Bearer <spoiler-span monitor-position="true">SECRET_KEY</spoiler-span>"</code
 					></pre>
 			</div>
 		</div>
