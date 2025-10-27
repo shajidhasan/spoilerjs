@@ -1,0 +1,30 @@
+@import 'tailwindcss';
+
+@import '@skeletonlabs/skeleton';
+@import '@skeletonlabs/skeleton-svelte';
+@import '@skeletonlabs/skeleton/themes/wintry';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+    --heading-font-family: 'Space Grotesk Variable', sans-serif;
+    --base-font-family: 'Space Grotesk Variable', sans-serif;
+    --anchor-font-family: 'inherit';
+}
+
+@layer base {
+    html {
+        @apply scroll-smooth;
+    }
+
+    body {
+        background-image:
+            radial-gradient(at 24% 35%, color-mix(in oklab, var(--color-primary-500) 18%, transparent) 0px, transparent 50%),
+            radial-gradient(at 35% 23%, color-mix(in oklab, var(--color-success-500) 10%, transparent) 0px, transparent 50%),
+            radial-gradient(at 100% 74%, color-mix(in oklab, var(--color-error-500) 2%, transparent) 0px, transparent 60%);
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+}

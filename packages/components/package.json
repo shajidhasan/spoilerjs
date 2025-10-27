@@ -1,0 +1,67 @@
+{
+  "name": "spoilerjs",
+  "version": "0.1.1",
+  "description": "A fast, lightweight web component for creating spoiler text with particle effects",
+  "author": "Shajid Hasan",
+  "main": "dist/components/index.js",
+  "module": "dist/components/index.js",
+  "types": "dist/components/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/components/index.js",
+      "types": "./dist/components/index.d.ts"
+    },
+    "./spoiler-span": {
+      "import": "./dist/components/spoiler-span.js",
+      "types": "./dist/components/spoiler-span.d.ts"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shajidhasan/spoilerjs.git"
+  },
+  "files": [
+    "dist/components/"
+  ],
+  "scripts": {
+    "build": "stencil build",
+    "start": "stencil build --dev --watch --serve",
+    "test": "stencil test --spec --e2e",
+    "test.watch": "stencil test --spec --e2e --watchAll",
+    "generate": "stencil generate",
+    "prepublishOnly": "npm run build",
+    "version": "npm run build"
+  },
+  "devDependencies": {
+    "@stencil/core": "^4.27.1",
+    "@tailwindcss/cli": "^4.1.16",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.13.5",
+    "jest": "^29.7.0",
+    "jest-cli": "^29.7.0",
+    "puppeteer": "^24.3.0",
+    "tailwindcss": "^4.1.16"
+  },
+  "license": "MIT",
+  "keywords": [
+    "spoiler",
+    "web-component",
+    "stencil",
+    "particle-effects",
+    "text-effects",
+    "custom-element",
+    "spoiler-text",
+    "reveal-animation"
+  ],
+  "homepage": "https://github.com/shajidhasan/spoilerjs#readme",
+  "bugs": {
+    "url": "https://github.com/shajidhasan/spoilerjs/issues"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=7.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

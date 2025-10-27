@@ -1,0 +1,21 @@
+{
+    "name": "spoilerjs-monorepo",
+    "version": "0.1.0",
+    "private": true,
+    "description": "spoilerjs monorepo containing components and documentation",
+    "scripts": {
+        "dev": "pnpm --filter spoilerjs-site dev",
+        "dev:components": "pnpm --filter spoilerjs start",
+        "build": "pnpm -r build",
+        "build:components": "pnpm --filter spoilerjs build",
+        "build:site": "pnpm --filter spoilerjs-site build",
+        "install:all": "pnpm install",
+        "publish:components": "pnpm --filter spoilerjs publish",
+        "version:components": "pnpm --filter spoilerjs version",
+        "prepublish:components": "pnpm build:components"
+    },
+    "engines": {
+        "node": ">=16.0.0",
+        "pnpm": ">=8.0.0"
+    }
+}

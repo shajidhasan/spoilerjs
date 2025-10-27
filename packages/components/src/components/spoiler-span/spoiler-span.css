@@ -1,0 +1,37 @@
+:host {
+  display: inline;
+}
+
+div {
+  position: relative;
+  display: inline;
+  cursor: pointer;
+  user-select: none;
+}
+
+div.hidden {
+  color: transparent;
+  text-shadow: none;
+}
+
+div.revealing {
+  cursor: pointer;
+  user-select: none;
+  animation: fadeInText var(--reveal-duration, 600ms) ease-out forwards;
+}
+
+div.revealed {
+  color: inherit;
+  cursor: default;
+  user-select: text;
+}
+
+@keyframes fadeInText {
+  from {
+    color: transparent;
+  }
+  to {
+    color: inherit;
+  }
+}
+

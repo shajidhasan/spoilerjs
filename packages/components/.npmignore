@@ -1,0 +1,35 @@
+# Source files
+src/
+*.ts
+*.tsx
+!*.d.ts
+
+# Config files
+stencil.config.ts
+tsconfig.json
+.editorconfig
+.prettierrc.json
+
+# Development files
+www/
+.stencil/
+node_modules/
+
+# Lock files
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
+
+# Git files
+.git/
+.gitignore
+
+# Documentation (keep readme.md)
+*.md
+!readme.md
+!README.md
+
+# Test files
+**/*.spec.ts
+**/*.e2e.ts
+**/*.test.ts
