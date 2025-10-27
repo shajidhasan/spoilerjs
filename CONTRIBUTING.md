@@ -1,22 +1,20 @@
-# Contributing to SpoilerJS
+# Contributing to spoilerjs
 
-First off, thank you for considering contributing to SpoilerJS! It's people like you that make SpoilerJS such a great tool.
+Thanks for helping make **spoilerjs** better! 🎉
 
-## Where do I go from here?
+## Getting Started
 
-If you've noticed a bug or have a feature request, [make one](https://github.com/shajidhasan/spoilerjs/issues/new)! It's generally best if you get confirmation of your bug or approval for your feature request this way before starting to code.
+Found a bug or have an idea? [Open an issue](https://github.com/shajidhasan/spoilerjs/issues/new) first so we can chat about it.
 
-### Fork & create a branch
+### 1. Fork & Branch
 
-If this is something you think you can fix, then [fork SpoilerJS](https://github.com/shajidhasan/spoilerjs/fork) and create a branch with a descriptive name.
-
-A good branch name would be (where issue #38 is the ticket you're working on):
+[Fork the repo](https://github.com/shajidhasan/spoilerjs/fork) and create a new branch:
 
 ```sh
-git checkout -b 38-add-awesome-new-feature
+git checkout -b 38-add-cool-feature
 ```
 
-### Get the code
+### 2. Set Up
 
 ```sh
 git clone https://github.com/your-username/spoilerjs.git
@@ -24,38 +22,23 @@ cd spoilerjs
 pnpm install
 ```
 
-### Implement your fix or feature
+### 3. Make Changes
 
-At this point, you're ready to make your changes! Feel free to ask for help; everyone is a beginner at first :smile_cat:
+Tweak, fix, or build your feature. Ask questions if you're stuck - we've all been there 😸
 
-### Make a Pull Request
+### 4. Push & PR
 
-At this point, you should switch back to your master branch and make sure it's up to date with SpoilerJS's master branch:
+Keep your branch updated and open a pull request:
 
 ```sh
 git remote add upstream git@github.com:shajidhasan/spoilerjs.git
 git checkout master
 git pull upstream master
-```
-
-Then update your feature branch from your local copy of master, and push it!
-
-```sh
-git checkout 38-add-awesome-new-feature
+git checkout 38-add-cool-feature
 git rebase master
-git push --force-with-lease origin 38-add-awesome-new-feature
+git push --force-with-lease
 ```
 
-Finally, go to GitHub and make a Pull Request.
+## Need Help?
 
-### Keeping your Pull Request updated
-
-If a maintainer asks you to "rebase" your PR, they're saying that a lot of code has changed, and that you need to update your branch so it's easier to merge.
-
-To learn more about rebasing and merging, check out this guide on [using git-rebase](https://www.atlassian.com/git/tutorials/rewriting-history/git-rebase).
-
-## How to get in touch
-
-You can reach out to the core team in the [issues section](https://github.com/shajidhasan/spoilerjs/issues) of the repository.
-
-Thank you for contributing!
+Drop by the [issues page](https://github.com/shajidhasan/spoilerjs/issues).
