@@ -1,6 +1,6 @@
 {
   "name": "spoilerjs",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "A fast, lightweight web component for creating spoiler text with particle effects",
   "author": "Shajid Hasan",
   "main": "dist/components/index.js",

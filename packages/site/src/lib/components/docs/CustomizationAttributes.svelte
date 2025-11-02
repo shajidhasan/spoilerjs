@@ -27,7 +27,7 @@
 		{
 			parameter: 'particle-lifetime',
 			type: 'number',
-			description: 'Duration in frames (60fps)',
+			description: 'Duration in frames',
 			default: 120
 		},
 		{
@@ -35,6 +35,12 @@
 			type: 'number',
 			description: 'Fade-in time (ms)',
 			default: 500
+		},
+		{
+			parameter: 'fps',
+			type: 'number',
+			description: 'Target frames per second',
+			default: 60
 		},
 
 		{

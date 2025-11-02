@@ -71,6 +71,7 @@ You can customize the appearance and behavior of the spoiler using attributes on
 | `reveal-duration`  | Text fade-in duration in milliseconds when revealing.          | `500`     |
 | `spawn-stop-delay` | Delay in milliseconds before stopping particle spawning after click. | `0`       |
 | `monitor-position` | Continuously monitor position for hover effects and transforms. | `false`   |
+| `fps`              | Target frames per second for particle animation. Lower values improve performance on slower devices. | `60`      |
 
 ### Example
 

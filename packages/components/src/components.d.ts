@@ -13,6 +13,11 @@ export namespace Components {
          */
         "density": number;
         /**
+          * Target frames per second for particle animation (default: 60). Lower values improve performance on slower devices.
+          * @default 60
+         */
+        "fps": number;
+        /**
           * Maximum velocity for particles (pixels per frame)
           * @default 0.05
          */
@@ -67,6 +72,11 @@ declare namespace LocalJSX {
           * @default 8
          */
         "density"?: number;
+        /**
+          * Target frames per second for particle animation (default: 60). Lower values improve performance on slower devices.
+          * @default 60
+         */
+        "fps"?: number;
         /**
           * Maximum velocity for particles (pixels per frame)
           * @default 0.05

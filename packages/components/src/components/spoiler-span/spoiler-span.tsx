@@ -53,6 +53,12 @@ export class SpoilerSpan {
     @Prop() monitorPosition: boolean = false;
 
     /**
+     * Target frames per second for particle animation (default: 60).
+     * Lower values improve performance on slower devices.
+     */
+    @Prop() fps: number = 60;
+
+    /**
      * State to track if the spoiler is currently revealing (text fading in)
      */
     @State() revealing: boolean = false;
@@ -82,8 +88,13 @@ export class SpoilerSpan {
     // RAF loop for continuous position monitoring (only when needed)
     private positionMonitorId: number | null = null;
     private isMonitoringPosition: boolean = false;
+    // Frame throttling for FPS control
+    private lastFrameTime: number = 0;
+    private frameInterval: number = 1000 / 60; // Will be updated based on fps prop
 
     componentDidLoad() {
+        // Calculate frame interval based on fps prop
+        this.frameInterval = 1000 / Math.max(1, this.fps);
         this.setupSpoiler();
 
         // ResizeObserver for container size changes
@@ -446,8 +457,18 @@ export class SpoilerSpan {
         return boxes;
     }
 
-    private animate = () => {
+    private animate = (currentTime: number = 0) => {
         if (this.revealed) return;
+
+        // Throttle to target FPS
+        const elapsed = currentTime - this.lastFrameTime;
+        if (elapsed < this.frameInterval) {
+            this.animationFrameId = requestAnimationFrame(this.animate);
+            return;
+        }
+
+        // Update last frame time, accounting for any drift
+        this.lastFrameTime = currentTime - (elapsed % this.frameInterval);
 
         // Check if all particles have died naturally
         const allParticlesDead = this.particleManagers.every(manager => !manager.hasParticles());
