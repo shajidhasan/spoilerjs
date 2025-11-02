@@ -63,7 +63,13 @@
 			<h1 class="h1 text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
 				Beautiful
 				{#if spoiler}
-					<spoiler-span scale="4" density="1" particle-lifetime="100">spoiler effects</spoiler-span>
+					<spoiler-span
+						scale="4"
+						density="1"
+						particle-lifetime="100"
+						min-velocity="0.4"
+						max-velocity="0.8">spoiler effects</spoiler-span
+					>
 				{:else}
 					<span>spoiler effects</span>
 				{/if}
