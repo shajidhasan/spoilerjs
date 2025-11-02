@@ -3,6 +3,7 @@
 **A fast, lightweight web component for creating spoiler text with particle effects.**
 
 [![NPM](https://img.shields.io/npm/v/spoilerjs?style=flat-square)](https://www.npmjs.com/package/spoilerjs)
+[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg?style=flat-square)](https://www.webcomponents.org/element/spoilerjs)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
 [![GitHub issues](https://img.shields.io/github/issues/shajidhasan/spoilerjs?style=flat-square)](https://github.com/shajidhasan/spoilerjs/issues)
 [![npm bundle size](https://img.shields.io/bundlephobia/minzip/spoilerjs?style=flat-square)](https://bundlephobia.com/package/spoilerjs)
