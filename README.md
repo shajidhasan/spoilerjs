@@ -21,6 +21,11 @@ spoilerjs is a dependency-free web component that lets you hide text with a spoi
 -   **Accessible:** Designed with accessibility in mind.
 -   **Framework Agnostic:** Works with any framework or no framework at all.
 
+## Similar Projects
+
+After creating this, I discovered [spoiled](https://github.com/molefrog/spoiled), another excellent spoiler text library also inspired by Telegram's spoiler effect. However, this project is still viable because `spoiled` is only for React, and uses the CSS Houdini API which may not be completely supported yet.
+
+
 ## Getting Started
 
 ### Installation
