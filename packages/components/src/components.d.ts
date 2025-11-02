@@ -39,7 +39,7 @@ export namespace Components {
         "particleLifetime": number;
         /**
           * Text fade-in duration in milliseconds when revealing
-          * @default 500
+          * @default 300
          */
         "revealDuration": number;
         /**
@@ -99,7 +99,7 @@ declare namespace LocalJSX {
         "particleLifetime"?: number;
         /**
           * Text fade-in duration in milliseconds when revealing
-          * @default 500
+          * @default 300
          */
         "revealDuration"?: number;
         /**
