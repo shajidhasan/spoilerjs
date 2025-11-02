@@ -68,7 +68,7 @@ You can customize the appearance and behavior of the spoiler using attributes on
 | `max-velocity`     | Maximum velocity for particles (pixels per frame).             | `0.05`    |
 | `particle-lifetime`| Particle lifetime in frames (e.g., 60 frames = 1 second).      | `120`     |
 | `density`          | Target particle density (particles per 100 square pixels).     | `8`       |
-| `reveal-duration`  | Text fade-in duration in milliseconds when revealing.          | `500`     |
+| `reveal-duration`  | Text fade-in duration in milliseconds when revealing.          | `300`     |
 | `spawn-stop-delay` | Delay in milliseconds before stopping particle spawning after click. | `0`       |
 | `monitor-position` | Continuously monitor position for hover effects and transforms. | `false`   |
 | `fps`              | Target frames per second for particle animation. Lower values improve performance on slower devices. | `60`      |
