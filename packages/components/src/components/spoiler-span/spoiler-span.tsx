@@ -38,7 +38,7 @@ export class SpoilerSpan {
     /**
      * Text fade-in duration in milliseconds when revealing
      */
-    @Prop() revealDuration: number = 500;
+    @Prop() revealDuration: number = 300;
 
     /**
      * Delay in milliseconds before stopping particle spawning after click (default: 300ms)

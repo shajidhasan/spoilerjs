@@ -34,7 +34,7 @@
 			parameter: 'reveal-duration',
 			type: 'number',
 			description: 'Fade-in time (ms)',
-			default: 500
+			default: 300
 		},
 		{
 			parameter: 'fps',
