@@ -51,7 +51,7 @@ npm install spoilerjs
     <p>
         Be careful, here's a spoiler:
         <spoiler-span>
-            Snape kills Dumbledore.
+            It was a missing semicolon all along.
         </spoiler-span>
     </p>
     ```
