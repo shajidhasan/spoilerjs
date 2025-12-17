@@ -10,11 +10,8 @@
 </script>
 
 <Navbar />
-
 <Hero />
 <Demo />
 <Features />
 <Docs />
-<!--
--->
 <Footer />
