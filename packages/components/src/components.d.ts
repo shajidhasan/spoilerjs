@@ -113,15 +113,28 @@ declare namespace LocalJSX {
          */
         "spawnStopDelay"?: number;
     }
+
+    interface SpoilerSpanAttributes {
+        "scale": number;
+        "minVelocity": number;
+        "maxVelocity": number;
+        "particleLifetime": number;
+        "density": number;
+        "revealDuration": number;
+        "spawnStopDelay": number;
+        "monitorPosition": boolean;
+        "fps": number;
+    }
+
     interface IntrinsicElements {
-        "spoiler-span": SpoilerSpan;
+        "spoiler-span": Omit<SpoilerSpan, keyof SpoilerSpanAttributes> & { [K in keyof SpoilerSpan & keyof SpoilerSpanAttributes]?: SpoilerSpan[K] } & { [K in keyof SpoilerSpan & keyof SpoilerSpanAttributes as `attr:${K}`]?: SpoilerSpanAttributes[K] } & { [K in keyof SpoilerSpan & keyof SpoilerSpanAttributes as `prop:${K}`]?: SpoilerSpan[K] };
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "spoiler-span": LocalJSX.SpoilerSpan & JSXBase.HTMLAttributes<HTMLSpoilerSpanElement>;
+            "spoiler-span": LocalJSX.IntrinsicElements["spoiler-span"] & JSXBase.HTMLAttributes<HTMLSpoilerSpanElement>;
         }
     }
 }
