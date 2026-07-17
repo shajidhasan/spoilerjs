@@ -163,7 +163,6 @@ export class SpoilerSpan {
             cancelAnimationFrame(this.animationFrameId);
             this.animationFrameId = null;
         }
-        // Remove canvases from body
         this.canvases.forEach(canvas => {
             if (canvas.parentNode) {
                 canvas.parentNode.removeChild(canvas);
@@ -218,73 +217,10 @@ export class SpoilerSpan {
         }
 
         // Check if any canvas position needs updating
-        this.updateCanvasPositionsImmediate();
+        this.updateCanvasPositions();
 
         this.positionMonitorId = requestAnimationFrame(this.monitorPositionLoop);
     };
-
-    /**
-     * Immediate canvas position update (no debounce)
-     * Used by RAF loop for smooth tracking of transforms
-     */
-    private updateCanvasPositionsImmediate() {
-        const slotNodes = this.slotElement.assignedNodes();
-        if (slotNodes.length === 0) return;
-
-        const range = document.createRange();
-        let canvasIndex = 0;
-        const scrollX = window.scrollX ?? window.pageXOffset;
-        const scrollY = window.scrollY ?? window.pageYOffset;
-
-        slotNodes.forEach(node => {
-            if (node.nodeType === Node.TEXT_NODE) {
-                range.selectNodeContents(node);
-                const rects = range.getClientRects();
-
-                for (let i = 0; i < rects.length; i++) {
-                    const rect = rects[i];
-                    if (rect.width > 0 && rect.height > 0 && canvasIndex < this.canvases.length) {
-                        const canvas = this.canvases[canvasIndex];
-                        const newLeft = rect.left + scrollX;
-                        const newTop = rect.top + scrollY;
-
-                        // Only update if position changed (avoid unnecessary style updates)
-                        const currentLeft = parseFloat(canvas.style.left);
-                        const currentTop = parseFloat(canvas.style.top);
-
-                        if (Math.abs(newLeft - currentLeft) > 0.5 || Math.abs(newTop - currentTop) > 0.5) {
-                            canvas.style.left = `${newLeft}px`;
-                            canvas.style.top = `${newTop}px`;
-                        }
-
-                        canvasIndex++;
-                    }
-                }
-            } else if (node.nodeType === Node.ELEMENT_NODE) {
-                const element = node as HTMLElement;
-                const rects = element.getClientRects();
-
-                for (let i = 0; i < rects.length && canvasIndex < this.canvases.length; i++) {
-                    const rect = rects[i];
-                    if (rect.width > 0 && rect.height > 0) {
-                        const canvas = this.canvases[canvasIndex];
-                        const newLeft = rect.left + scrollX;
-                        const newTop = rect.top + scrollY;
-
-                        const currentLeft = parseFloat(canvas.style.left);
-                        const currentTop = parseFloat(canvas.style.top);
-
-                        if (Math.abs(newLeft - currentLeft) > 0.5 || Math.abs(newTop - currentTop) > 0.5) {
-                            canvas.style.left = `${newLeft}px`;
-                            canvas.style.top = `${newTop}px`;
-                        }
-
-                        canvasIndex++;
-                    }
-                }
-            }
-        });
-    }
 
     /**
      * Debounced version of updateCanvasPositions to prevent excessive calls
@@ -330,7 +266,8 @@ export class SpoilerSpan {
             textColor: this.textColor,
         };
 
-        // Create canvases for each bounding box, positioned absolutely on the page
+        // Create canvases for each bounding box, absolutely positioned inside the
+        // container so they move with it when any ancestor scrolls
         boundingBoxes.forEach((box) => {
             const canvas = document.createElement('canvas');
             // Use device pixel ratio for sharp rendering
@@ -344,7 +281,7 @@ export class SpoilerSpan {
             canvas.style.pointerEvents = 'none';
             canvas.style.zIndex = '1';
 
-            document.body.appendChild(canvas);
+            this.containerDiv.appendChild(canvas);
 
             const ctx = canvas.getContext('2d', { alpha: true });
             if (!ctx) {
@@ -369,43 +306,42 @@ export class SpoilerSpan {
     }
 
     private updateCanvasPositions() {
-        const slotNodes = this.slotElement.assignedNodes();
-        if (slotNodes.length === 0) return;
+        const boxes = this.getTextBoundingBoxes();
+        const count = Math.min(boxes.length, this.canvases.length);
 
-        const range = document.createRange();
-        let canvasIndex = 0;
-        const scrollX = window.scrollX ?? window.pageXOffset;
-        const scrollY = window.scrollY ?? window.pageYOffset;
+        for (let i = 0; i < count; i++) {
+            const canvas = this.canvases[i];
+            const currentLeft = parseFloat(canvas.style.left);
+            const currentTop = parseFloat(canvas.style.top);
 
-        slotNodes.forEach(node => {
-            if (node.nodeType === Node.TEXT_NODE) {
-                range.selectNodeContents(node);
-                const rects = range.getClientRects();
-
-                for (let i = 0; i < rects.length; i++) {
-                    const rect = rects[i];
-                    if (rect.width > 0 && rect.height > 0 && canvasIndex < this.canvases.length) {
-                        const canvas = this.canvases[canvasIndex];
-                        canvas.style.left = `${rect.left + scrollX}px`;
-                        canvas.style.top = `${rect.top + scrollY}px`;
-                        canvasIndex++;
-                    }
-                }
-            } else if (node.nodeType === Node.ELEMENT_NODE) {
-                const element = node as HTMLElement;
-                const rects = element.getClientRects();
-
-                for (let i = 0; i < rects.length && canvasIndex < this.canvases.length; i++) {
-                    const rect = rects[i];
-                    if (rect.width > 0 && rect.height > 0) {
-                        const canvas = this.canvases[canvasIndex];
-                        canvas.style.left = `${rect.left + scrollX}px`;
-                        canvas.style.top = `${rect.top + scrollY}px`;
-                        canvasIndex++;
-                    }
-                }
+            // Only update if position changed (avoid unnecessary style updates)
+            if (Math.abs(boxes[i].x - currentLeft) > 0.5 || Math.abs(boxes[i].y - currentTop) > 0.5) {
+                canvas.style.left = `${boxes[i].x}px`;
+                canvas.style.top = `${boxes[i].y}px`;
             }
-        });
+        }
+    }
+
+    /**
+     * Measure where left: 0 / top: 0 actually lands for absolutely positioned
+     * children of the container. The container is an inline element, so its
+     * containing block origin is the first line fragment — not the union rect
+     * that getBoundingClientRect() returns for wrapped text.
+     */
+    private getCanvasOrigin(): { x: number; y: number } {
+        const probe = document.createElement('span');
+        probe.style.position = 'absolute';
+        probe.style.left = '0';
+        probe.style.top = '0';
+        probe.style.width = '0';
+        probe.style.height = '0';
+        probe.style.pointerEvents = 'none';
+
+        this.containerDiv.appendChild(probe);
+        const rect = probe.getBoundingClientRect();
+        probe.remove();
+
+        return { x: rect.left, y: rect.top };
     }
 
     private getTextBoundingBoxes(): BoundingBox[] {
@@ -414,43 +350,29 @@ export class SpoilerSpan {
 
         if (slotNodes.length === 0) return boxes;
 
-        // Create a temporary span to measure text
         const range = document.createRange();
-        const scrollX = window.scrollX ?? window.pageXOffset;
-        const scrollY = window.scrollY ?? window.pageYOffset;
+        const origin = this.getCanvasOrigin();
+
+        const pushRects = (rects: DOMRectList) => {
+            for (let i = 0; i < rects.length; i++) {
+                const rect = rects[i];
+                if (rect.width > 0 && rect.height > 0) {
+                    boxes.push({
+                        x: rect.left - origin.x,
+                        y: rect.top - origin.y,
+                        width: rect.width,
+                        height: rect.height,
+                    });
+                }
+            }
+        };
 
         slotNodes.forEach(node => {
             if (node.nodeType === Node.TEXT_NODE) {
                 range.selectNodeContents(node);
-                const rects = range.getClientRects();
-
-                // Convert viewport rects to document coordinates so canvases can be absolutely positioned on the page
-                for (let i = 0; i < rects.length; i++) {
-                    const rect = rects[i];
-                    if (rect.width > 0 && rect.height > 0) {
-                        boxes.push({
-                            x: rect.left + scrollX,
-                            y: rect.top + scrollY,
-                            width: rect.width,
-                            height: rect.height,
-                        });
-                    }
-                }
+                pushRects(range.getClientRects());
             } else if (node.nodeType === Node.ELEMENT_NODE) {
-                const element = node as HTMLElement;
-                const rects = element.getClientRects();
-
-                for (let i = 0; i < rects.length; i++) {
-                    const rect = rects[i];
-                    if (rect.width > 0 && rect.height > 0) {
-                        boxes.push({
-                            x: rect.left + scrollX,
-                            y: rect.top + scrollY,
-                            width: rect.width,
-                            height: rect.height,
-                        });
-                    }
-                }
+                pushRects((node as HTMLElement).getClientRects());
             }
         });
 
